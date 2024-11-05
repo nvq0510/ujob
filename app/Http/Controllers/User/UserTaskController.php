@@ -6,7 +6,6 @@ use App\Models\Task;
 use App\Models\TaskImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
 
 class UserTaskController extends Controller
 {
@@ -50,27 +49,29 @@ class UserTaskController extends Controller
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $file) {
                 $filename = 'task_' . $task->id . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
-                $path = $file->storeAs('task_images', $filename, 'public');
+                $path = $file->move(public_path('task_images'), $filename);
     
-                $task->images()->create(['path' => $path]);
+                // Store relative path in database
+                $task->images()->create(['path' => 'task_images/' . $filename]);
             }
         }
     
         return redirect()->back()->with('success', '画像がアップロードされました。');
     }
     
-
     public function deleteImage(Task $task, TaskImage $image)
     {
         if ($task->user_id != Auth::id()) {
             abort(403, '権限がありません');
         }
-
-        if (Storage::disk('public')->exists($image->path)) {
-            Storage::disk('public')->delete($image->path);
+    
+        $imagePath = public_path($image->path);
+        if (file_exists($imagePath)) {
+            unlink($imagePath);
         }
         $image->delete();
-
+    
         return redirect()->back()->with('success', '画像が削除されました。');
     }
+    
 }

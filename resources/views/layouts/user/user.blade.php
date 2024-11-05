@@ -17,6 +17,8 @@
     <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/custom-mobile.css') }}" rel="stylesheet">
 
+    <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
+
 
 </head>
 
@@ -134,7 +136,7 @@
         <i class="fas fa-angle-up"></i>
     </a>
 
-    <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
+
     <!-- Bootstrap core JavaScript-->
     <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <!-- Core plugin JavaScript-->

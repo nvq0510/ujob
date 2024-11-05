@@ -175,26 +175,27 @@
     </div>
 </div>
 <script>
-    $('#viewToggle').on('click', function() {
-        const $gridView = $('#gridView');
-        const $listView = $('#listView');
-        const $icon = $(this).find('i');
+    $(document).ready(function() {
+        $('#viewToggle').on('click', function() {
+            const $gridView = $('#gridView');
+            const $listView = $('#listView');
+            const $icon = $(this).find('i');
 
-        if ($gridView.is(':visible')) {
-            $gridView.addClass('hide').fadeOut(300, function() {
-                $listView.removeClass('hide').addClass('show').fadeIn(300);
-            });
-            $icon.removeClass('fa-table').addClass('fa-th');
-        } else {
-            $listView.addClass('hide').fadeOut(300, function() {
-                $gridView.removeClass('hide').addClass('show').fadeIn(300);
-            });
-            $icon.removeClass('fa-th').addClass('fa-table');
-        }
+            if ($gridView.is(':visible')) {
+                $gridView.addClass('hide').fadeOut(300, function() {
+                    $listView.removeClass('hide').addClass('show').fadeIn(300);
+                });
+                $icon.removeClass('fa-table').addClass('fa-th');
+            } else {
+                $listView.addClass('hide').fadeOut(300, function() {
+                    $gridView.removeClass('hide').addClass('show').fadeIn(300);
+                });
+                $icon.removeClass('fa-th').addClass('fa-table');
+            }
+        });
     });
-
-
 </script>
+
 @endsection
 
 

@@ -7,7 +7,6 @@ use App\Models\Task;
 use App\Models\User;
 use App\Models\Workplace;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class TaskController extends Controller
 {
@@ -104,8 +103,8 @@ class TaskController extends Controller
                 foreach ($request->delete_image_ids as $imageId) {
                     $image = $task->images()->find($imageId);
                     if ($image) {
-                        if (Storage::disk('public')->exists($image->path)) {
-                            Storage::disk('public')->delete($image->path);
+                        if (file_exists(public_path($image->path))) {
+                            unlink(public_path($image->path));
                         }
                         $image->delete();
                     }
@@ -115,9 +114,10 @@ class TaskController extends Controller
             if ($request->hasFile('images')) {
                 foreach ($request->file('images') as $image) {
                     $filename = 'task_' . $task->id . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
-                    $path = $image->storeAs('task_images', $filename, 'public');
-                    
-                    $task->images()->create(['path' => $path]);
+                    $path = $image->move(public_path('task_images'), $filename);
+    
+                    // Store only relative path
+                    $task->images()->create(['path' => 'task_images/' . $filename]);
                 }
             }
     
@@ -132,12 +132,15 @@ class TaskController extends Controller
     {
         $task = Task::with('images')->findOrFail($id);
         foreach ($task->images as $image) {
-            Storage::disk('public')->delete($image->path);
+            if (file_exists(public_path($image->path))) {
+                unlink(public_path($image->path));
+            }
             $image->delete();
         }
         $task->delete();
         return redirect()->route('admin.tasks.index')->with('success', 'タスクが削除されました。');
     }
+    
 
     public function getCalendarData(Request $request)
     {

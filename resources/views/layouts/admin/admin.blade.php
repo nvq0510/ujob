@@ -13,13 +13,15 @@
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;700;800&display=swap" rel="stylesheet">
     <link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet">
-    <link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.11.3/main.min.css' rel='stylesheet' />
-    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.11.3/main.min.css" rel="stylesheet">
+
     <!-- Core CSS -->
     <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
     <link href="{{ asset('css/custom-mobile.css') }}" rel="stylesheet">
     <link href="{{ asset('css/calendar.css') }}" rel="stylesheet">
+    <!-- Core JS -->
+    <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
 </head>
 
 <body id="page-top">
@@ -155,14 +157,13 @@
         <i class="fas fa-angle-up"></i>
     </a>
 
-    <!-- Core JS -->
-    <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
+
     <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('vendor/jquery-easing/jquery.easing.min.js') }}"></script>
     
     <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.11.3/main.min.js'></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.11.3/main.min.js"></script>
     
     <!-- Custom scripts -->
     <script src="{{ asset('js/sb-admin-2.min.js') }}"></script>
@@ -170,10 +171,30 @@
     <script src="{{ asset('js/demo/chart-pie-demo.js') }}"></script>
 
     <script>
-        $(document).ajaxStart(() => $('#loadingSpinner').fadeIn());
-        $(document).ajaxStop(() => $('#loadingSpinner').fadeOut());
-        $('form').on('submit', () => $('#loadingSpinner').fadeIn());
-        
+        $(document).ready(function() {
+            $(document).ajaxStart(() => $('#loadingSpinner').fadeIn());
+            $(document).ajaxStop(() => $('#loadingSpinner').fadeOut());
+            $('form').on('submit', () => $('#loadingSpinner').fadeIn());
+
+            $('#viewToggle').on('click', function() {
+                const $gridView = $('#gridView');
+                const $listView = $('#listView');
+                const $icon = $(this).find('i');
+
+                if ($gridView.is(':visible')) {
+                    $gridView.addClass('hide').fadeOut(300, function() {
+                        $listView.removeClass('hide').addClass('show').fadeIn(300);
+                    });
+                    $icon.removeClass('fa-table').addClass('fa-th');
+                } else {
+                    $listView.addClass('hide').fadeOut(300, function() {
+                        $gridView.removeClass('hide').addClass('show').fadeIn(300);
+                    });
+                    $icon.removeClass('fa-th').addClass('fa-table');
+                }
+            });
+        });
+
         const showSpinner = () => $('#loadingSpinner').fadeIn();
         const hideSpinner = () => $('#loadingSpinner').fadeOut();
     </script>

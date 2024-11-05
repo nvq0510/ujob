@@ -94,8 +94,8 @@
                 @foreach ($task->images as $image)
                     <div class="col-6 col-md-3 col-lg-2 mb-3">
                         <div class="card shadow-sm position-relative">
-                            <a href="{{ asset('storage/' . $image->path) }}" target="_blank">
-                                <img src="{{ asset('storage/' . $image->path) }}" class="card-img-top rounded" alt="Task Image" style="height: 100px; object-fit: cover;">
+                            <a href="{{ asset($image->path) }}" target="_blank">
+                                <img src="{{ asset($image->path) }}" class="card-img-top rounded" alt="Task Image" style="height: 100px; object-fit: cover;">
                             </a>
                             <form action="{{ route('user.tasks.deleteImage', ['task' => $task->id, 'image' => $image->id]) }}" method="POST" class="delete-image-form position-absolute" style="top: 5px; right: 5px;">
                                 @csrf
