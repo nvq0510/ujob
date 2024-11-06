@@ -169,6 +169,10 @@
     <script src="{{ asset('js/sb-admin-2.min.js') }}"></script>
     <script src="{{ asset('vendor/chart.js/Chart.min.js') }}"></script>
     <script src="{{ asset('js/demo/chart-pie-demo.js') }}"></script>
+    <!-- Liên kết calendar.js -->
+    <script src="{{ asset('js/calendar.js') }}"></script>
+    <script src="{{ asset('js/pie-char.js') }}"></script>
+
 
     <script>
         $(document).ready(function() {
