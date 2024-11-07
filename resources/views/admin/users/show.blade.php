@@ -96,10 +96,9 @@
                         class="btn btn-light btn-sm">
                         <i class="fas fa-plus me-1"></i>新規タスク
                     </a>
-
                 </div>
                 <div class="card-body">
-                    @if($user->tasks->isEmpty())
+                    @if($tasks->isEmpty())
                         <div class="text-center py-5">
                             <i class="fas fa-clipboard-list fa-3x text-gray-300 mb-3"></i>
                             <p class="text-muted mb-0">現在、割り当てられているタスクはありません。</p>
@@ -118,10 +117,10 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($user->tasks as $task)
+                                    @foreach($tasks as $task)
                                         <tr>
                                             <td>{{ $task->id }}</td>
-                                            <td>{{ $task->work_date }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($task->work_date)->format('Y-m-d') }}</td>
                                             <td>{{ $task->shift }}</td>
                                             <td>{{ $task->workplace->workplace }}</td>
                                             <td>
@@ -131,7 +130,7 @@
                                             </td>
                                             <td>
                                                 <a href="{{ route('admin.tasks.show', $task->id) }}" 
-                                                   class="btn btn-sm btn-primary">
+                                                class="btn btn-sm btn-primary">
                                                     <i class="fas fa-eye"></i>
                                                 </a>
                                             </td>
@@ -140,10 +139,15 @@
                                 </tbody>
                             </table>
                         </div>
+                        <!-- Pagination -->
+                        <div class="d-flex justify-content-center mt-4">
+                            {{ $tasks->links('pagination::bootstrap-4') }}
+                        </div>
                     @endif
                 </div>
             </div>
         </div>
+
     </div>
 </div>
 @endsection

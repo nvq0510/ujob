@@ -61,6 +61,7 @@ class UserController extends Controller
     
         return redirect()->route('admin.users.index')->with('success', 'ユーザーが正常に作成されました。');
     }
+
     public function edit(User $user)
     {
         return view('admin.users.edit', compact('user'));
@@ -90,8 +91,10 @@ class UserController extends Controller
 
     public function show($id)
     {
-        $user = User::with('tasks.workplace')->findOrFail($id);
-        return view('admin.users.show', compact('user'));
+        $user = User::findOrFail($id);
+        $tasks = $user->tasks()->with('workplace')->paginate(5); 
+        return view('admin.users.show', compact('user', 'tasks'));
     }
+
     
 }

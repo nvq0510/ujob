@@ -107,9 +107,9 @@
                             <td>{{ \Carbon\Carbon::parse($task->work_date)->format('Y-m-d') }}</td>
                             <td>{{ $task->shift }}</td>
                             <td>
-                                <span class="status-badge {{ $user->status == 'active' ? 'status-active' : 'status-inactive' }}">
-                                        {{ $user->status == 'active' ? 'アクティブ' : '非アクティブ' }}
-                                </span>
+                            <span class="task-status status-{{ strtolower($task->status) }}">
+                                {{ $task->status }}
+                            </span>
                             </td>
                             <td>
                                 <a href="{{ route('admin.tasks.show', $task->id) }}" class="btn btn-sm btn-info">
