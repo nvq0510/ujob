@@ -9,7 +9,7 @@ class WorkplaceController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Workplace::query();
+        $query = Workplace::with('rooms');
     
         // Lọc theo tên workplace
         if ($request->filled('workplace')) {
@@ -32,7 +32,6 @@ class WorkplaceController extends Controller
         $workplace = Workplace::with(['rooms.statuses'])->findOrFail($id);
         return view('admin.workplaces.show', compact('workplace'));
     }
-    
 
     public function create()
     {
@@ -43,16 +42,16 @@ class WorkplaceController extends Controller
     {
         $request->validate([
             'workplace' => 'required|string|max:255',
-            'zipcode' => 'required|string|max:10',
+            'zipcode' => 'required|regex:/^\d{7}$/', // Mã bưu điện phải là 7 chữ số
             'address' => 'required|string',
             'total_rooms' => 'nullable|integer|min:0',
             'linen' => 'nullable|string|max:255',
-            'nearest_laundromat_distance' => 'nullable|numeric',
+            'laundry_distance' => 'nullable|string|max:255', // Cập nhật trường này là kiểu text
         ]);
 
         Workplace::create($request->all());
 
-        return redirect()->route('admin.workplaces.index')->with('success', 'Workplace created successfully.');
+        return redirect()->route('admin.workplaces.index')->with('success', '職場が正常に作成されました。');
     }
 
     public function edit($id)
@@ -65,21 +64,21 @@ class WorkplaceController extends Controller
     {
         $request->validate([
             'workplace' => 'required|string|max:255',
-            'zipcode' => 'required|string|max:10',
+            'zipcode' => 'required|regex:/^\d{7}$/', // Mã bưu điện phải là 7 chữ số
             'address' => 'required|string',
             'total_rooms' => 'nullable|integer|min:0',
             'linen' => 'nullable|string|max:255',
-            'nearest_laundromat_distance' => 'nullable|numeric',
+            'laundry_distance' => 'nullable|string|max:255', // Cập nhật trường này là kiểu text
         ]);
 
         $workplace->update($request->all());
 
-        return redirect()->route('admin.workplaces.index')->with('success', 'Workplace updated successfully.');
+        return redirect()->route('admin.workplaces.index')->with('success', '職場情報が正常に更新されました。');
     }
 
     public function destroy(Workplace $workplace)
     {
         $workplace->delete();
-        return redirect()->route('admin.workplaces.index')->with('success', 'Workplace deleted successfully.');
+        return redirect()->route('admin.workplaces.index')->with('success', '職場が削除されました。');
     }
 }

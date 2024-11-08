@@ -49,8 +49,8 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="nearest_laundromat_distance">最寄りランドリー距離 (km)</label>
-                    <input type="number" step="0.01" name="nearest_laundromat_distance" id="nearest_laundromat_distance" class="form-control" value="{{ old('nearest_laundromat_distance', $workplace->nearest_laundromat_distance) }}">
+                    <label for="laundry_distance">最寄りランドリー情報（住所と徒歩時間）</label>
+                    <textarea name="laundry_distance" id="laundry_distance" class="form-control" rows="3">{{ old('laundry_distance', $workplace->laundry_distance) }}</textarea>
                 </div>
             </div>
         </div>

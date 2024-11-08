@@ -64,7 +64,7 @@
                             <th>住所</th>
                             <th>総部屋数</th>
                             <th>リネン</th>
-                            <th>最寄りランドリー距離 (km)</th>
+                            <th>最寄りランドリー距離</th>
                             <th>アクション</th>
                         </tr>
                     </thead>
@@ -75,18 +75,20 @@
                             <td>{{ $workplace->workplace }}</td>
                             <td>{{ $workplace->zipcode }}</td>
                             <td>{{ $workplace->address }}</td>
-                            <td>{{ $workplace->total_rooms ?? 'N/A' }}</td>
+                            <td>{{ $workplace->rooms->count() }}</td>
                             <td>{{ $workplace->linen ?? 'N/A' }}</td>
-                            <td>{{ $workplace->nearest_laundromat_distance ?? 'N/A' }}</td>
-                            <td>
-                                <a href="{{ route('admin.workplaces.show', $workplace->id) }}" class="btn btn-sm btn-info">
-                                    <i class="fas fa-eye"></i> 詳細
+                            <td>{{ $workplace->laundry_distance ?? 'N/A' }}</td>
+                            <td class="d-flex align-items-center justify-content-between">
+                                <a href="{{ route('admin.workplaces.show', $workplace->id) }}" class="btn btn-sm btn-info me-2">
+                                    <i class="fas fa-eye"></i>
+                                    <!-- 詳細 -->
                                 </a>
                                 <form action="{{ route('admin.workplaces.destroy', $workplace->id) }}" method="POST" class="d-inline">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('削除しますか？')">
-                                        <i class="fas fa-trash-alt"></i> 削除
+                                        <i class="fas fa-trash-alt"></i>
+                                        <!-- 削除 -->
                                     </button>
                                 </form>
                             </td>

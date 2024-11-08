@@ -23,7 +23,7 @@
             <p><strong>職場:</strong> <a href="{{ route('admin.workplaces.show', $room->workplace_id) }}">{{ $room->workplace->workplace }}</a></p>
             <p><strong>部屋番号:</strong> {{ $room->room_number }}</p>
             <p><strong>状態:</strong> 
-                <span class="badge badge-{{ $room->status == 'CLEANING' ? 'warning' : ($room->status == 'IN' ? 'danger' : 'success') }}">
+                <span class="status-badge status-{{ strtolower($room->status) }}">
                     {{ $room->status }}
                 </span>
             </p>
@@ -43,7 +43,10 @@
                 <ul class="list-group">
                     @foreach($room->statuses as $status)
                         <li class="list-group-item">
-                            <strong>状態:</strong> {{ $status->status }}<br>
+                            <strong>状態:</strong> 
+                            <span class="status-badge status-{{ strtolower($status->status) }}">
+                                {{ $status->status }}
+                            </span><br>
                             <strong>更新日時:</strong> {{ $status->updated_at->format('Y-m-d H:i') }}<br>
                             <strong>備考:</strong> {{ $status->notes ?? 'なし' }}
                         </li>

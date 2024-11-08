@@ -14,10 +14,9 @@ class Workplace extends Model
         'workplace',
         'zipcode',
         'address',
-        'total_rooms', 
-        'linen', 
-        'nearest_laundromat_distance', 
-
+        'total_rooms',
+        'linen',
+        'laundry_distance',
     ];
 
     // Định nghĩa mối quan hệ với model Task

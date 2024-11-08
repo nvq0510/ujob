@@ -6,6 +6,8 @@
 <div class="container-fluid">
     <h1 class="h4 mb-4">部屋の編集 - {{ $room->workplace->workplace }} / 部屋番号: {{ $room->room_number }}</h1>
 
+    <!-- Notification -->
+    @include('components.alert')
     <form action="{{ route('admin.rooms.update', $room->id) }}" method="POST">
         @csrf
         @method('PUT')
