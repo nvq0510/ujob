@@ -23,6 +23,8 @@
         </a>
     </div>
 
+    <!-- Notification -->
+    @include('components.alert')
     <!-- Workplace Table -->
     <div class="card border-0 shadow mb-4">
         <div class="card-header bg-gradient-primary py-3 d-flex justify-content-between align-items-center">
@@ -60,6 +62,9 @@
                             <th>職場名</th>
                             <th>郵便番号</th>
                             <th>住所</th>
+                            <th>総部屋数</th>
+                            <th>リネン</th>
+                            <th>最寄りランドリー距離 (km)</th>
                             <th>アクション</th>
                         </tr>
                     </thead>
@@ -70,9 +75,12 @@
                             <td>{{ $workplace->workplace }}</td>
                             <td>{{ $workplace->zipcode }}</td>
                             <td>{{ $workplace->address }}</td>
+                            <td>{{ $workplace->total_rooms ?? 'N/A' }}</td>
+                            <td>{{ $workplace->linen ?? 'N/A' }}</td>
+                            <td>{{ $workplace->nearest_laundromat_distance ?? 'N/A' }}</td>
                             <td>
-                                <a href="{{ route('admin.workplaces.edit', $workplace->id) }}" class="btn btn-sm btn-warning">
-                                    <i class="fas fa-edit"></i> 編集
+                                <a href="{{ route('admin.workplaces.show', $workplace->id) }}" class="btn btn-sm btn-info">
+                                    <i class="fas fa-eye"></i> 詳細
                                 </a>
                                 <form action="{{ route('admin.workplaces.destroy', $workplace->id) }}" method="POST" class="d-inline">
                                     @csrf

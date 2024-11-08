@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\TaskController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\WorkplaceController;
 use App\Http\Controllers\Admin\TaskImageController;
+use App\Http\Controllers\Admin\RoomController;
 use App\Http\Controllers\User\UserDashboardController;
 use App\Http\Controllers\User\UserTaskController;
 use Illuminate\Support\Facades\Hash;
@@ -56,7 +57,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::prefix('tasks')->name('tasks.')->group(function () {
         // Calendar data endpoint
         Route::get('calendar-data', [TaskController::class, 'getCalendarData'])->name('calendar-data');
-        
+
         // Task image management routes
         Route::prefix('{task}/images')->name('images.')->group(function () {
             Route::get('/', [TaskImageController::class, 'index'])->name('index');
@@ -71,7 +72,14 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::resource('tasks', TaskController::class);
     Route::resource('users', UserController::class);
     Route::resource('workplaces', WorkplaceController::class);
+
+    // Custom routes for rooms
+    Route::get('workplaces/{workplace}/rooms/create', [RoomController::class, 'create'])->name('rooms.create');
+    Route::resource('rooms', RoomController::class)->except(['index', 'create']);
 });
+
+
+
 
 
 Route::middleware(['auth', 'role:user'])->prefix('user')->name('user.')->group(function () {

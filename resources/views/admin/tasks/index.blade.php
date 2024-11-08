@@ -23,6 +23,8 @@
         </a>
     </div>
 
+    @include('components.alert')
+
     <!-- Task Table -->
     <div class="card border-0 shadow mb-4">
         <div class="card-header bg-gradient-primary py-3 d-flex justify-content-between align-items-center">

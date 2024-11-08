@@ -2,11 +2,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\User; // Thêm dòng này để khai báo model User
-use App\Models\Task;
 use App\Models\Workplace;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
 
 class WorkplaceController extends Controller
 {
@@ -29,6 +26,12 @@ class WorkplaceController extends Controller
     
         return view('admin.workplaces.index', compact('workplaces'));
     }
+
+    public function show($id)
+    {
+        $workplace = Workplace::with(['rooms.statuses'])->findOrFail($id);
+        return view('admin.workplaces.show', compact('workplace'));
+    }
     
 
     public function create()
@@ -42,6 +45,9 @@ class WorkplaceController extends Controller
             'workplace' => 'required|string|max:255',
             'zipcode' => 'required|string|max:10',
             'address' => 'required|string',
+            'total_rooms' => 'nullable|integer|min:0',
+            'linen' => 'nullable|string|max:255',
+            'nearest_laundromat_distance' => 'nullable|numeric',
         ]);
 
         Workplace::create($request->all());
@@ -51,16 +57,19 @@ class WorkplaceController extends Controller
 
     public function edit($id)
     {
-        $workplace = Workplace::findOrFail($id);
+        $workplace = Workplace::with('rooms')->findOrFail($id);
         return view('admin.workplaces.edit', compact('workplace'));
     }
-    
+
     public function update(Request $request, Workplace $workplace)
     {
         $request->validate([
             'workplace' => 'required|string|max:255',
             'zipcode' => 'required|string|max:10',
             'address' => 'required|string',
+            'total_rooms' => 'nullable|integer|min:0',
+            'linen' => 'nullable|string|max:255',
+            'nearest_laundromat_distance' => 'nullable|numeric',
         ]);
 
         $workplace->update($request->all());
@@ -74,4 +83,3 @@ class WorkplaceController extends Controller
         return redirect()->route('admin.workplaces.index')->with('success', 'Workplace deleted successfully.');
     }
 }
-

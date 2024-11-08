@@ -37,6 +37,24 @@
                     <textarea name="address" id="address" class="form-control" rows="3" required></textarea>
                 </div>
 
+                <!-- Total Rooms -->
+                <div class="form-group">
+                    <label for="total_rooms">Total Rooms</label>
+                    <input type="number" name="total_rooms" id="total_rooms" class="form-control" min="0">
+                </div>
+
+                <!-- Linen -->
+                <div class="form-group">
+                    <label for="linen">Linen</label>
+                    <input type="text" name="linen" id="linen" class="form-control">
+                </div>
+
+                <!-- Nearest Laundromat Distance -->
+                <div class="form-group">
+                    <label for="nearest_laundromat_distance">Nearest Laundromat Distance (km)</label>
+                    <input type="number" step="0.01" name="nearest_laundromat_distance" id="nearest_laundromat_distance" class="form-control">
+                </div>
+
                 <!-- Submit Button -->
                 <button type="submit" class="btn btn-primary">Create Workplace</button>
             </form>

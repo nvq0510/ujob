@@ -33,7 +33,7 @@
         if (alert.length) {
             setTimeout(function() {
                 alert.fadeOut('slow', function() {
-                    $(this).remove(); // Remove the alert from the DOM after fading out
+                    $(this).remove(); 
                 });
             }, 3000);
         }

@@ -14,11 +14,21 @@ class Workplace extends Model
         'workplace',
         'zipcode',
         'address',
+        'total_rooms', 
+        'linen', 
+        'nearest_laundromat_distance', 
+
     ];
 
     // Định nghĩa mối quan hệ với model Task
     public function tasks()
     {
         return $this->hasMany(Task::class);
+    }
+
+
+    public function rooms()
+    {
+        return $this->hasMany(Room::class);
     }
 }
