@@ -29,13 +29,13 @@
                 <!-- Zip Code -->
                 <div class="form-group">
                     <label for="zipcode">郵便番号</label>
-                    <input type="text" name="zipcode" id="zipcode" class="form-control" required>
+                    <input type="text" name="zipcode" id="zipcode" class="form-control" maxlength="7" required>
                 </div>
 
                 <!-- Address -->
                 <div class="form-group">
                     <label for="address">住所</label>
-                    <textarea name="address" id="address" class="form-control" rows="3" required></textarea>
+                    <textarea name="address" id="address" class="form-control" rows="3" required ></textarea>
                 </div>
 
                 <!-- Total Rooms -->
@@ -62,4 +62,6 @@
         </div>
     </div>
 </div>
+
+<script src="{{ asset('js/zipcodeHandler.js') }}"></script>
 @endsection

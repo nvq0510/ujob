@@ -30,7 +30,7 @@
 
                 <div class="form-group">
                     <label for="zipcode">郵便番号</label>
-                    <input type="text" name="zipcode" id="zipcode" class="form-control" value="{{ old('zipcode', $workplace->zipcode) }}" required>
+                    <input type="text" name="zipcode" id="zipcode" class="form-control" value="{{ old('zipcode', $workplace->zipcode) }}" maxlength="7" required>
                 </div>
 
                 <div class="form-group">
@@ -61,4 +61,7 @@
         </div>
     </form>
 </div>
+
+<script src="{{ asset('js/zipcodeHandler.js') }}"></script>
+
 @endsection
